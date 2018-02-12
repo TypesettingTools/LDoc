@@ -1004,7 +1004,7 @@ local function auto_links(text)
 
 	-- mail
 	text = text:gsub("<mailto:([^'\">%s]+)>", mail)
-	text = text:gsub("<([-.%w]+%@[-.%w]+)>", mail)
+	text = text:gsub("<([-.%w+]+%@[-.%w]+)>", mail)
 	return text
 end
 
