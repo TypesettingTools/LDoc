@@ -233,7 +233,7 @@ function ldoc.source_ref (fun)
 
       local types = {}
       for name in tp:gmatch("[^|]+") do
-         local sym = name:match '([%w%.%:]+)'
+         local sym = name:match '([%w%.%:_/#]+)' -- / and # are used for custom ref
          local ref,err = markup.process_reference(sym,true)
          if ref then
             if ref.label and sym == name then
