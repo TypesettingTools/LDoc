@@ -247,6 +247,8 @@ function ldoc.add_config_value(name, value)
   config_values[name] = value
 end
 
+-- Enable `require` command within `config.ld`
+ldoc.require = require
 local ldoc_contents = {
    'alias','add_language_extension','custom_tags','new_type','add_section', 'tparam_alias',
    'file','project','title','package','format','output','dir','ext', 'topics',
@@ -260,7 +262,8 @@ local ldoc_contents = {
    'postprocess_html',
    'custom_css','version',
    'no_args_infer',
-   'add_config_value'
+   'add_config_value',
+   'require'
 }
 ldoc_contents = tablex.makeset(ldoc_contents)
 
