@@ -270,6 +270,31 @@ local ldoc_contents = {
 }
 ldoc_contents = tablex.makeset(ldoc_contents)
 
+--- Adds string splitting function for `string` object.
+--
+-- Source: https://stackoverflow.com/questions/1426954/split-string-in-lua#answer-7615129
+--
+-- @function string.split
+-- @param str String to be parsed
+-- @param delim Delimiter
+-- @return Table of strings
+function string.split(str, delim)
+	if delim == nil then
+		delim = '%s'
+	end
+	if str == nil then
+		str = ''
+	end
+
+	local t={} ; i=1
+	for s in string.gmatch(str, '([^' .. delim .. ']+)') do
+		t[i] = s
+		i = i + 1
+	end
+
+	return t
+end
+
 local function loadstr (ldoc,txt)
    local chunk, err
    local load
