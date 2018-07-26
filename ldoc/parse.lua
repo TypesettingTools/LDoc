@@ -412,9 +412,11 @@ local function parse_file(fname, lang, package, args)
                current_item = F:new_item(tags,line)
                current_item.inferred = item_follows ~= nil
                if doc.project_level(tags.class) then
+                  --[[
                   if module_item then
                      F:error("Module already declared!")
                   end
+                  ]]
                   module_item = current_item
                end
             end
