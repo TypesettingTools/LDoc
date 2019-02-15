@@ -40,7 +40,7 @@ local usage = [[
 ldoc, a documentation generator for Lua, v]]..version..[[
 
   Invocation:
-    ldoc [options] <file>
+    ldoc [options] [file]
     ldoc --version
 
   Options:
@@ -76,7 +76,7 @@ ldoc, a documentation generator for Lua, v]]..version..[[
     --fatalwarnings	non-zero exit status on any warning
     --testing		reproducible build; no date or version on output
 
-  <file> (optional string) source file or directory containing source
+  file (optional string) source file or directory containing source
 
   `ldoc .` reads options from an `config.ld` file in same directory;
   `ldoc -c path/to/myconfig.ld <file>` reads options from `path/to/myconfig.ld`
@@ -397,6 +397,20 @@ end
 
 local abspath = tools.abspath
 
+local ftype = type(args.file)
+local flen = 0
+if ftype == 'table' then
+	flen = #args.file
+elseif ftype == 'string' then
+	if string.len(args.file) > 0 then
+		flen = 1
+	end
+end
+
+if args.file == nil or flen == 0 then
+	lapp.error('missing required parameter: file')
+end
+
 -- a special case: 'ldoc .' can get all its parameters from config.ld
 if args.file == '.' or args.file == './' then
    local config_path = path.dirname(args.config)
@@ -415,7 +429,7 @@ if args.file == '.' or args.file == './' then
    else
       args.file = abspath(args.file)
    end
-else
+elseif type(args.file) ~= 'table' then
    -- user-provided config file
    if args.file == nil then
       lapp.error('missing required parameter: file')
