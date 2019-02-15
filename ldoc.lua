@@ -276,8 +276,9 @@ ldoc_contents = tablex.makeset(ldoc_contents)
 -- @function string.split
 -- @param str String to be parsed
 -- @param delim Delimiter
+-- @param limit Only up to a limited number os substrings
 -- @return Table of strings
-function string.split(str, delim)
+function string.split(str, delim, limit)
 	if delim == nil then
 		delim = '%s'
 	end
@@ -287,6 +288,8 @@ function string.split(str, delim)
 
 	local t={} ; i=1
 	for s in string.gmatch(str, '([^' .. delim .. ']+)') do
+		if limit ~= nill and i > limit then break end
+
 		t[i] = s
 		i = i + 1
 	end
