@@ -389,7 +389,7 @@ end
 local abspath = tools.abspath
 
 -- a special case: 'ldoc .' can get all its parameters from config.ld
-if args.file == '.' then
+if args.file == '.' or args.file == './' then
    local err
    config_dir,err = read_ldoc_config(args.config)
    if err then quit("no "..quote(args.config).." found") end
