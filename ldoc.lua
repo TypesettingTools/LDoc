@@ -367,6 +367,15 @@ local file_list = List()
 File.list = file_list
 local config_dir
 
+local err
+config_dir, err = read_ldoc_config(args.config)
+
+if err then quit('Configuration ' .. quote(args.config) .. ' not found') end
+
+if args.file == nil then
+	args.file = ldoc.file
+end
+
 
 local ldoc_dir = arg[0]:gsub('[^/\\]+$','')
 local doc_path = ldoc_dir..'/ldoc/builtin/?.lua'
@@ -390,9 +399,6 @@ local abspath = tools.abspath
 
 -- a special case: 'ldoc .' can get all its parameters from config.ld
 if args.file == '.' or args.file == './' then
-   local err
-   config_dir,err = read_ldoc_config(args.config)
-   if err then quit("no "..quote(args.config).." found") end
    local config_path = path.dirname(args.config)
    if config_path ~= '' then
       print('changing to directory',config_path)
@@ -411,12 +417,6 @@ if args.file == '.' or args.file == './' then
    end
 else
    -- user-provided config file
-   if args.config ~= 'config.ld' then
-      local err
-      config_dir,err = read_ldoc_config(args.config)
-      if err then quit("no "..quote(args.config).." found") end
-   end
-   -- with user-provided file
    if args.file == nil then
       lapp.error('missing required parameter: file')
    end
@@ -558,7 +558,6 @@ elseif path.isdir(args.file) then
          return path.basename(f) == args.config
       end)
       if #config_files > 0 then
-         config_dir = read_ldoc_config(config_files[1])
          if #config_files > 1 then
             print('warning: other config files found: '..config_files[2])
          end
@@ -573,9 +572,6 @@ elseif path.isfile(args.file) then
       config_dir = path.dirname(args.file)
       if config_dir == '' then config_dir = '.' end
       local config = path.join(config_dir,args.config)
-      if path.isfile(config) then
-         read_ldoc_config(config)
-      end
    end
    process_file(args.file, file_list)
    if #file_list == 0 then quit "unsupported file extension" end
