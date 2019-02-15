@@ -250,6 +250,8 @@ end
 ldoc.require = require
 ldoc.print = print
 ldoc.table = table
+ldoc.tostring = tostring
+ldoc.string = string
 
 local ldoc_contents = {
    'alias','add_language_extension','custom_tags','new_type','add_section', 'tparam_alias',
@@ -264,7 +266,7 @@ local ldoc_contents = {
    'postprocess_html',
    'custom_css','version',
    'no_args_infer',
-   'require', 'print', 'table',
+   'require', 'print', 'table', 'tostring', 'string',
    'add_config_value'
 }
 ldoc_contents = tablex.makeset(ldoc_contents)
