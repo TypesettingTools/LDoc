@@ -295,7 +295,7 @@ function string.split(str, delim, limit)
 
 	local t={} ; i=1
 	for s in string.gmatch(str, '([^' .. delim .. ']+)') do
-		if limit ~= nill and i > limit then break end
+		if limit ~= nil and i > limit then break end
 
 		t[i] = s
 		i = i + 1
