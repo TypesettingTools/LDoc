@@ -255,6 +255,7 @@ ldoc.string = string
 ldoc.type = type
 ldoc.quit = quit
 ldoc.ldoc_version = version
+ldoc.io = io
 
 local ldoc_contents = {
    'alias','add_language_extension','custom_tags','new_type','add_section', 'tparam_alias',
@@ -270,7 +271,8 @@ local ldoc_contents = {
    'custom_css','version',
    'no_args_infer',
    'require', 'print', 'table', 'tostring', 'string', 'type', 'quit', 'ldoc_version',
-   'add_config_value'
+   'add_config_value',
+   'io'
 }
 ldoc_contents = tablex.makeset(ldoc_contents)
 
